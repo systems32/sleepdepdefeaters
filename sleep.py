@@ -1,7 +1,10 @@
 import tkinter as tk
 from datetime import datetime
 import os
+import json
 
+with open("names.json") as json_file:
+    names = json.load(json_file)
 
 # --functions--
 def create_account():
@@ -45,7 +48,11 @@ def information_validation(option, username, password, password_confirmation, co
     file_name = username + password + ".txt"
     if option == "create account":
         if (password == password_confirmation) and (password != ""):
-            creating_account = open(file_name, "w")
+            names.append({"Username" : username, "Password" : password, 'Sleep' : {}})
+            print(username)
+            print(password)
+            with open('names.json', 'w') as json_file:
+                json.dump(names, json_file, indent=4, separators=(',', ':'))
         else:
             config_message.config(text="Invalid Entry - Please try again", fg="red")
     elif option == "signin":
