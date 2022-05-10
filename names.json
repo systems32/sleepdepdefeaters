@@ -1,12 +1,27 @@
 [
     {
-        "Username":"ryan",
-        "Password":"lin",
+        "Username":"Ryan",
+        "Password":"Lin",
         "Sleep":{}
     },
     {
         "Username":"john",
         "Password":"lee",
+        "Sleep":{}
+    },
+    {
+        "Username":"haurto",
+        "Password":"iscool",
+        "Sleep":{}
+    },
+    {
+        "Username":"ryan",
+        "Password":"lin",
+        "Sleep":{}
+    },
+    {
+        "Username":"bob",
+        "Password":"lin",
         "Sleep":{}
     }
 ]

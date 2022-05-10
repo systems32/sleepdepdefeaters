@@ -10,12 +10,13 @@ with open("names.json") as json_file:
 def create_account():
     # create_account_page
     create_account_page.place(relx=0.5, rely=0.5, anchor="center")
-    root.wm_geometry("210x235")
+    root.wm_geometry("350x250")
 
     # Labels
     lbl_create_account_page = tk.Label(create_account_page, text="Create Account", font=("TkFixedFont", 13, "bold"))
     lbl_create_account_message = tk.Label(create_account_page, text="Enter the following information",
                                           font=("TkFixedFont", 9, "italic"))
+    global lbl_username
     lbl_username = tk.Label(create_account_page, text="Username:")
     lbl_password = tk.Label(create_account_page, text="Password:")
     lbl_password_confirmation = tk.Label(create_account_page, text="Confirm Password")
@@ -45,21 +46,32 @@ def create_account():
 
 
 def information_validation(option, username, password, password_confirmation, config_message):
-    file_name = username + password + ".txt"
+    used_user = False
+    logged_in = False
+    for i in names:
+        print(i)
+        print(i['Username'])
+        if username == i['Username']:
+            used_user = True
+            print('ok')
+
     if option == "create account":
-        if (password == password_confirmation) and (password != ""):
-            names.append({"Username" : username, "Password" : password, 'Sleep' : {}})
-            print(username)
-            print(password)
+        if (password == password_confirmation) and (password != "") and used_user == False:
+            names.append({"Username": username, "Password": password, 'Sleep' : {}})
+            config_message.config(text="")
             with open('names.json', 'w') as json_file:
                 json.dump(names, json_file, indent=4, separators=(',', ':'))
+        elif used_user:
+            config_message.config(text="That username is already in use - Please try again", fg="red")
         else:
             config_message.config(text="Invalid Entry - Please try again", fg="red")
     elif option == "signin":
-        try:
-            signin_check = open(file_name, "r")
-            start_and_end_sleep(username, file_name)
-        except FileNotFoundError:
+        for i in names:
+            if username == i['Username'] and password in i["Password"]:
+                logged_in = True
+                file_name = 'test'
+                start_and_end_sleep(username, file_name)
+        if logged_in == False:
             config_message.config(text="Unsuccessful login\nPlease try again", fg="red")
             config_message.pack(pady=1)
 
@@ -67,7 +79,7 @@ def information_validation(option, username, password, password_confirmation, co
 def signin():
     # signin_page
     signin_page.place(relx=0.5, rely=0.5, anchor="center")
-    root.wm_geometry("210x190")
+    root.wm_geometry("350x250")
 
     # Labels
     lbl_signin_page = tk.Label(signin_page, text="Sign In", font=("TkFixedFont", 13, "bold"))
@@ -98,7 +110,7 @@ def signin():
 def start_and_end_sleep(username, file_name):
     # start_and_end_sleep_page
     start_and_end_sleep_page.place(relx=0.5, rely=0.5, anchor="center")
-    root.wm_geometry("260x120")
+    root.wm_geometry("350x250")
     options.destroy()
     create_account_page.destroy()
     signin_page.destroy()
@@ -146,7 +158,7 @@ def end_sleep(file_name):
 
 # main window
 root = tk.Tk()
-root.wm_geometry("210x70")
+root.wm_geometry("350x250")
 
 # main window title
 tk_title = root.title()
