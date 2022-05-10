@@ -71,7 +71,7 @@ def information_validation(option, username, password, password_confirmation, co
                 logged_in = True
                 file_name = 'test'
                 start_and_end_sleep(username, file_name)
-        if logged_in == False:
+        if not logged_in:
             config_message.config(text="Unsuccessful login\nPlease try again", fg="red")
             config_message.pack(pady=1)
 
@@ -119,7 +119,8 @@ def start_and_end_sleep(username, file_name):
     lbl_start_and_end_sleep_page = tk.Label(start_and_end_sleep_page, text="Welcome " + str(username) + "!",
                                             font=("TkFixedFont", 13, "bold"))
     lbl_start_and_end_sleep_message = tk.Label(start_and_end_sleep_page,
-                                               text="Choose an option:\n1. \"Start Sleep\" if going to bed\n2. \"End Sleep\" if woke up",
+                                               text="Choose an option:\n1. \"Start Sleep\" if going to bed\n"
+                                                    "2. \"End Sleep\" if woke up",
                                                font=("TkFixedFont", 9, "italic"))
 
     # Buttons
