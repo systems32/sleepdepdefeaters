@@ -61,6 +61,8 @@ def information_validation(option, username, password, password_confirmation, co
             config_message.config(text="")
             with open('names.json', 'w') as json_file:
                 json.dump(names, json_file, indent=4, separators=(',', ':'))
+            file_name = 'needs to open json file'
+            start_and_end_sleep(username, file_name)
         elif used_user:
             config_message.config(text="That username is already in use - Please try again", fg="red")
         else:
@@ -69,7 +71,7 @@ def information_validation(option, username, password, password_confirmation, co
         for i in names:
             if username == i['Username'] and password in i["Password"]:
                 logged_in = True
-                file_name = 'test'
+                file_name = 'needs to open json file'
                 start_and_end_sleep(username, file_name)
         if not logged_in:
             config_message.config(text="Unsuccessful login\nPlease try again", fg="red")
